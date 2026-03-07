@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import YnkLogo from "@/components/YnkLogo";
 
 
 const Footer = () => {
@@ -13,10 +14,7 @@ const Footer = () => {
               className="flex items-center gap-2 mb-4"
               onClick={() => window.scrollTo(0, 0)}
             >
-              <div className="flex items-center text-2xl font-extrabold tracking-tighter" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                <span className="text-[#99FF00]">roi</span>
-                <span className="text-foreground">Lead</span>
-              </div>
+              <YnkLogo size="md" />
             </Link>
             <p className="text-muted-foreground text-sm max-w-xs mb-4">
               Geração de leads inteligente via WhatsApp. Encontre empresas por região e nicho em segundos.
@@ -77,7 +75,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm text-center md:text-left">
-            © {new Date().getFullYear()} roiLead. Todos os direitos reservados.
+            © {new Date().getFullYear()} YNK Sistemas. Todos os direitos reservados.
           </p>
 
         </div>

@@ -3,9 +3,10 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff, ArrowLeft, Loader2 } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft, Loader2, Bot } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
+import YnkLogo from "@/components/YnkLogo";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,13 +18,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    // Check if we came from signup with an email to pre-fill
     const emailParam = searchParams.get("email");
     if (emailParam) {
       setEmail(emailParam);
     }
 
-    // Check authentication session
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
@@ -83,10 +82,7 @@ const Login = () => {
           </Link>
 
           <div className="flex items-center gap-2 mb-8">
-            <div className="flex items-center text-3xl font-extrabold tracking-tighter" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              <span className="text-[#99FF00]">roi</span>
-              <span className="text-foreground">Lead</span>
-            </div>
+            <YnkLogo size="lg" />
           </div>
 
           {/* Header */}
@@ -94,11 +90,11 @@ const Login = () => {
             Bem-vindo de volta
           </h1>
           <p className="text-muted-foreground mb-8">
-            Entre para acessar sua conta
+            Entre para acessar seu painel
           </p>
 
           <div className="grid gap-4 mb-6">
-            <Button variant="outline" onClick={handleGoogleLogin} className="w-full">
+            <Button variant="outline" onClick={handleGoogleLogin} className="w-full border-border/50 hover:bg-card/50">
               <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
                 <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
               </svg>
@@ -107,7 +103,7 @@ const Login = () => {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
+                <span className="w-full border-t border-border/50" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-background px-2 text-muted-foreground">
@@ -128,6 +124,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="bg-card/50 border-border/50 focus:border-primary"
               />
             </div>
 
@@ -146,6 +143,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  className="bg-card/50 border-border/50 focus:border-primary"
                 />
                 <button
                   type="button"
@@ -157,7 +155,7 @@ const Login = () => {
               </div>
             </div>
 
-            <Button type="submit" variant="hero" className="w-full" size="lg" disabled={isLoading}>
+            <Button type="submit" className="w-full bg-gradient-primary hover:opacity-90 text-white shadow-ocean" size="lg" disabled={isLoading}>
               {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
               {isLoading ? "Entrando..." : "Entrar"}
             </Button>
@@ -173,23 +171,25 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right Side - Decorative (Hidden on mobile) */}
-      <div className="hidden lg:flex flex-1 bg-gradient-card items-center justify-center p-8 relative overflow-hidden dark">
-        <div className="absolute inset-0 bg-hero-pattern" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/20 via-transparent to-transparent blur-3xl" />
+      {/* Right Side - Decorative */}
+      <div className="hidden lg:flex flex-1 items-center justify-center p-8 relative overflow-hidden bg-gradient-hero">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[600px] h-[600px] bg-gradient-radial from-primary/15 via-transparent to-transparent blur-2xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-radial from-indigo-600/10 via-transparent to-transparent blur-2xl" />
+        </div>
 
         <div className="relative z-10 text-center max-w-md">
           <div className="mb-8 animate-float select-none">
-            <div className="flex items-center text-7xl font-extrabold tracking-tighter justify-center" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              <span className="text-[#99FF00]">roi</span>
-              <span className="text-white">Lead</span>
+            <div className="w-24 h-24 mx-auto rounded-2xl bg-gradient-primary flex items-center justify-center shadow-ocean mb-6">
+              <Bot className="w-12 h-12 text-white" />
             </div>
+            <YnkLogo size="xl" className="justify-center" />
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-4">
-            Leads qualificados em segundos
+            Gerencie seu Agente de IA
           </h2>
           <p className="text-muted-foreground">
-            Busque empresas por região e nicho diretamente no seu WhatsApp.
+            Conecte, monitore e personalize seu assistente virtual diretamente pelo painel.
           </p>
         </div>
       </div>

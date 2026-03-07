@@ -17,12 +17,14 @@ import CompleteRegistration from "./pages/CompleteRegistration";
 import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import DemoCursor from "./pages/DemoCursor";
+import DemoSchema from "./pages/DemoSchema";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -39,6 +41,8 @@ const App = () => (
             <Route path="/terms" element={<TermsOfUse />} />
             <Route path="/complete-registration" element={<CompleteRegistration />} />
             <Route path="/subscription" element={<Subscription />} />
+            <Route path="/demo-cursor" element={<DemoCursor />} />
+            <Route path="/demo-schema" element={<DemoSchema />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

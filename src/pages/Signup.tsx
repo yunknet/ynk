@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Target, Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft, Loader2, Bot } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
+import YnkLogo from "@/components/YnkLogo";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -63,7 +64,6 @@ const Signup = () => {
     try {
       const { email, password, firstName, lastName, phone } = formData;
 
-      // Get plan from URL query params
       const searchParams = new URLSearchParams(window.location.search);
       const plan = searchParams.get("plan");
 
@@ -81,7 +81,6 @@ const Signup = () => {
 
       if (error) throw error;
 
-      // Explicitly create profile if session exists immediately
       if (data.user) {
         const { error: profileError } = await supabase
           .from('profiles')
@@ -96,20 +95,17 @@ const Signup = () => {
 
         if (profileError) {
           console.error("Erro ao criar perfil automaticamente:", profileError);
-          // Non-blocking error
         }
       }
 
       toast({
         title: "Conta criada com sucesso!",
-        description: "Bem-vindo ao roiLead.",
+        description: "Bem-vindo ao YNK Sistemas.",
       });
 
       if (data.session) {
         navigate(`/dashboard?plan=${plan || ''}`);
       } else {
-        // Session is null, likely waiting for DB trigger to confirm email.
-        // Retry login logic...
         let attempts = 0;
         let loggedIn = false;
 
@@ -150,28 +146,30 @@ const Signup = () => {
   return (
     <div className="min-h-screen bg-background flex">
       {/* Left Side - Decorative */}
-      <div className="hidden lg:flex flex-1 bg-gradient-card items-center justify-center p-8 relative overflow-hidden dark">
-        <div className="absolute inset-0 bg-hero-pattern" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/20 via-transparent to-transparent blur-3xl" />
+      <div className="hidden lg:flex flex-1 items-center justify-center p-8 relative overflow-hidden bg-gradient-hero">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/3 w-[600px] h-[600px] bg-gradient-radial from-primary/15 via-transparent to-transparent blur-2xl" />
+          <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-gradient-radial from-indigo-600/10 via-transparent to-transparent blur-2xl" />
+        </div>
 
         <div className="relative z-10 text-center max-w-md">
           <div className="mb-8 animate-float select-none">
-            <div className="flex items-center text-7xl font-extrabold tracking-tighter justify-center" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              <span className="text-[#99FF00]">roi</span>
-              <span className="text-white">Lead</span>
+            <div className="w-24 h-24 mx-auto rounded-2xl bg-gradient-primary flex items-center justify-center shadow-ocean mb-6">
+              <Bot className="w-12 h-12 text-white" />
             </div>
+            <YnkLogo size="xl" className="justify-center" />
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-4">
-            Comece a prospectar hoje
+            Comece a automatizar hoje
           </h2>
           <p className="text-muted-foreground">
-            Encontre seus primeiros leads agora mesmo.
+            Crie sua conta e ative seu agente de IA em minutos.
           </p>
         </div>
       </div>
 
       {/* Right Side - Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <div className="w-full max-w-md">
           {/* Back Link */}
           <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors">
@@ -180,14 +178,11 @@ const Signup = () => {
           </Link>
 
           <div className="flex items-center gap-2 mb-8">
-            <div className="flex items-center text-3xl font-extrabold tracking-tighter" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              <span className="text-[#99FF00]">roi</span>
-              <span className="text-foreground">Lead</span>
-            </div>
+            <YnkLogo size="lg" />
           </div>
 
           {/* Header */}
-          <h1 className="text-3xl font-bold text-foreground mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Criar sua conta
           </h1>
           <p className="text-muted-foreground mb-8">
@@ -195,7 +190,7 @@ const Signup = () => {
           </p>
 
           <div className="grid gap-4 mb-6">
-            <Button variant="outline" onClick={handleGoogleLogin} className="w-full">
+            <Button variant="outline" onClick={handleGoogleLogin} className="w-full border-border/50 hover:bg-card/50">
               <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
                 <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
               </svg>
@@ -204,7 +199,7 @@ const Signup = () => {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
+                <span className="w-full border-t border-border/50" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-background px-2 text-muted-foreground">
@@ -215,7 +210,7 @@ const Signup = () => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="firstName">Nome</Label>
@@ -226,6 +221,7 @@ const Signup = () => {
                   required
                   value={formData.firstName}
                   onChange={handleChange}
+                  className="bg-card/50 border-border/50 focus:border-primary"
                 />
               </div>
               <div className="space-y-2">
@@ -237,6 +233,7 @@ const Signup = () => {
                   required
                   value={formData.lastName}
                   onChange={handleChange}
+                  className="bg-card/50 border-border/50 focus:border-primary"
                 />
               </div>
             </div>
@@ -250,6 +247,7 @@ const Signup = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
+                className="bg-card/50 border-border/50 focus:border-primary"
               />
             </div>
 
@@ -262,6 +260,7 @@ const Signup = () => {
                 required
                 value={formData.phone}
                 onChange={handleChange}
+                className="bg-card/50 border-border/50 focus:border-primary"
               />
             </div>
 
@@ -276,6 +275,7 @@ const Signup = () => {
                   minLength={6}
                   value={formData.password}
                   onChange={handleChange}
+                  className="bg-card/50 border-border/50 focus:border-primary"
                 />
                 <button
                   type="button"
@@ -299,13 +299,14 @@ const Signup = () => {
               />
               <label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
                 Aceito os{" "}
-                <a href="#" className="text-primary hover:underline">Termos de Uso</a>
+                <Link to="/terms" className="text-primary hover:underline">Termos de Uso</Link>
                 {" "}e a{" "}
-                <a href="#" className="text-primary hover:underline">Política de Privacidade</a>
+                <Link to="/privacy" className="text-primary hover:underline">Política de Privacidade</Link>
               </label>
             </div>
 
-            <Button type="submit" variant="hero" className="w-full" size="lg" disabled={isLoading}>
+            <Button type="submit" className="w-full bg-gradient-primary hover:opacity-90 text-white shadow-ocean" size="lg" disabled={isLoading}>
+              {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
               {isLoading ? "Criando conta..." : "Criar conta"}
             </Button>
           </form>

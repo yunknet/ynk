@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Target } from "lucide-react";
+import YnkLogo from "@/components/YnkLogo";
 
 const TermsOfUse = () => {
   return (
@@ -9,10 +10,7 @@ const TermsOfUse = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2">
-              <div className="flex items-center text-2xl font-extrabold tracking-tighter" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                <span className="text-[#99FF00]">roi</span>
-                <span className="text-foreground">Lead</span>
-              </div>
+              <YnkLogo size="md" />
             </Link>
             <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft className="w-4 h-4" />

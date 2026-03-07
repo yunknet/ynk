@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { ModeToggle } from "@/components/ModeToggle";
+import YnkLogo from "@/components/YnkLogo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,8 +35,7 @@ const Navbar = () => {
             onClick={() => window.scrollTo(0, 0)}
           >
             <div className="flex items-center text-2xl font-extrabold tracking-tighter" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              <span className="text-[#99FF00]">roi</span>
-              <span className="text-foreground">Lead</span>
+              <YnkLogo size="md" />
             </div>
           </Link>
 

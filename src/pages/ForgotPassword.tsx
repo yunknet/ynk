@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, Loader2, Mail, KeyRound, Lock, Eye, EyeOff } from "lucide-react";
+import YnkLogo from "@/components/YnkLogo";
 import {
     InputOTP,
     InputOTPGroup,
@@ -109,10 +110,7 @@ const ForgotPassword = () => {
                     </Link>
 
                     <div className="flex items-center gap-2 mb-8">
-                        <div className="flex items-center text-3xl font-extrabold tracking-tighter" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                            <span className="text-[#99FF00]">roi</span>
-                            <span className="text-foreground">Lead</span>
-                        </div>
+                        <YnkLogo size="lg" />
                     </div>
 
                     {step === "email" ? (
@@ -280,10 +278,7 @@ const ForgotPassword = () => {
 
                 <div className="relative z-10 text-center max-w-md">
                     <div className="mb-8 animate-float select-none">
-                        <div className="flex items-center text-7xl font-extrabold tracking-tighter justify-center" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                            <span className="text-[#99FF00]">roi</span>
-                            <span className="text-white">Lead</span>
-                        </div>
+                        <YnkLogo size="xl" className="justify-center" />
                     </div>
                     <h2 className="text-2xl font-bold text-foreground mb-4">
                         Recuperação de Acesso
